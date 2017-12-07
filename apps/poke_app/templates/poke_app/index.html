@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+		<h1>Welcome {{ request.session.user.name }}</h1>
+		<h3><a href = "{% url 'poke_app:clear' %}"> Log out </a></h3>
+
+
+		
+      
+		{% for poke in pokes %}
+	    {% for user in x %}
+
+		 
+		{% if user.id == poke.user %}
+			
+		<P>  {{ user.name }} poked you {{ poke.poke_count__count }} times!</P>
+		{% endif %}
+			
+		
+		{% endfor %}
+		{% endfor %}
+	
+
+
+
+		<h2> People you may want to poke</h2>
+
+       <div id='appointment_info'>
+            <table>
+                <tr>
+                  <th>Name</th>
+                  <th>Alias</th>
+                  <th>Email Address</th>
+                  <th>Poke History</th>
+                  <th>Action</th>
+                  
+                </tr>
+                <p>User Id #{{request.session.person_being_poked }}: The user that is being poked </p>
+               
+
+       
+            	{% for user in users %}
+            	
+            	
+        	
+            	<p></p>
+            	
+            		
+	              	<tr>
+	                  <td>{{ user.name }}</td>
+	                  <td>{{ user.alias }}</td>
+	                  <td> {{ user.email }}</td>
+	                  <td>{{ user.pokee.count }} </td>
+					  <td>
+	                  	<form action='{% url "poke_app:create_poke" user.id %}' method='POST'>
+       					{% csrf_token %}
+
+       				   	<input type="hidden" name="user_id" value = "{{ user.id }}">
+       				   	{{ user.id }}
+       				   	<input type="hidden" name="poke_count" value = "">
+       				   	<p><input type="submit" value="Poke"></p>
+
+	                    </form>
+	                  </td>
+	                </tr>  
+	            {% endfor %}
+     
+			</table>
+          </div>
+        
+</body>
+</html>
